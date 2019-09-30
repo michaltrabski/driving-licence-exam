@@ -12,7 +12,7 @@ class App extends Component {
     console.log("App componentDidMount", this.state.questionsList.length);
 
     // symulate ajax call
-    setTimeout(() => this.setState({ questionsList }), 1);
+    setTimeout(() => this.setState({ questionsList }), 10);
   }
 
   render() {

@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap/";
 import _ from "lodash";
 import SpinnerToLosExam from "../components/spinners/SpinnerToLosExam";
 import Exam from "./Exam";
+import MasterContainer from "./../components/spinners/MasterContainer";
 
 class ExamWrapper extends Component {
   state = {
@@ -74,28 +75,26 @@ class ExamWrapper extends Component {
   render() {
     const { questionsList } = this.props;
 
-    return questionsList.length > 0 ? (
-      <Container fluid>
-        <Row>
-          <Col>
-            {this.state.examReady ? (
-              <Exam examQuestionsList={this.state.examQuestionsList} />
-            ) : (
-              <>
-                <Button
-                  variant="primary"
-                  onClick={() => this.getRandom32Questions(questionsList)}
-                >
-                  Rozpoczniej egzamin
-                </Button>
-                <p>Tu jest info o zasadach egzaminu.</p>
-              </>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    ) : (
-      <SpinnerToLosExam />
+    return (
+      <MasterContainer>
+        {questionsList.length > 0 ? (
+          this.state.examReady ? (
+            <Exam examQuestionsList={this.state.examQuestionsList} />
+          ) : (
+            <div className="text-center py-5">
+              <Button
+                variant="primary"
+                onClick={() => this.getRandom32Questions(questionsList)}
+              >
+                Rozpoczniej egzamin
+              </Button>
+              <p>Tu jest info o zasadach egzaminu.</p>
+            </div>
+          )
+        ) : (
+          <SpinnerToLosExam />
+        )}
+      </MasterContainer>
     );
   }
 }
