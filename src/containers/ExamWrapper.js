@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap/";
+import { Button } from "react-bootstrap/";
 import _ from "lodash";
 import SpinnerToLosExam from "../components/spinners/SpinnerToLosExam";
 import Exam from "./Exam";
@@ -62,6 +62,8 @@ class ExamWrapper extends Component {
                 item.r.toLowerCase() === "b" ||
                 item.r.toLowerCase() === "c")))
       );
+
+      questionsListShuffled[findQuestion].nr = i + 1;
 
       examQuestionsList = [
         ...examQuestionsList,
