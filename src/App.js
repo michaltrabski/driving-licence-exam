@@ -1,28 +1,29 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import ExamWrapper from "./containers/ExamWrapper";
-import { questionsList } from "./assets/kat_b_pl";
+import { questionsList as questionsListFromAssets } from "./assets/kat_b_pl";
 
-class App extends Component {
-  state = {
-    questionsList: [],
-    examMode: true
-  };
+export const QuestionsContext = createContext();
 
-  componentDidMount() {
-    console.log("App componentDidMount", this.state.questionsList.length);
+const App = () => {
+  console.log("App");
 
-    // symulate ajax call
-    setTimeout(() => this.setState({ questionsList }), 2220);
-  }
+  const [questions, setQuestions] = useState([]);
+  const [examMode, setexamMode] = useState(true);
 
-  render() {
-    console.log("App Render", this.state.questionsList.length);
-    return this.state.examMode ? (
-      <ExamWrapper questionsList={this.state.questionsList} />
-    ) : (
-      "learning mode"
-    );
-  }
-}
+  useEffect(() => {
+    console.log("App useEffect");
+
+    setTimeout(() => {
+      const questions = questionsListFromAssets;
+      setQuestions(questions);
+    }, 1000);
+  }, [questions]);
+
+  return (
+    <QuestionsContext.Provider value={questions}>
+      {examMode && <ExamWrapper questionsList={questions} />}
+    </QuestionsContext.Provider>
+  );
+};
 
 export default App;
