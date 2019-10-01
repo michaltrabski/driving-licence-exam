@@ -1,17 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap/";
 import Media from "../components/Media";
+import Timer from "../components/Timer";
+import { getQuestionType } from "../functions/functions";
 
 const Exam = props => {
-  const [currentNr, setCurrentNr] = useState(1);
-
-  const nextQuestion = () => {
-    setCurrentNr(currentNr + 1);
-  };
+  const [currentNr, setCurrentNr] = useState(18);
+  const [timerReady, setTimerReady] = useState(true);
+  const [time, setTime] = useState(0);
+  const [timerType, setTimerType] = useState("type15");
+  const [questionType, setQuestionType] = useState("yesno");
 
   const { questions } = props;
   const question = questions[currentNr];
-  const { m, q } = question;
+  let { m, q, r } = question;
+
+  useEffect(() => {
+    setQuestionType(getQuestionType(question));
+  }, [currentNr]);
+
+  // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+
+  useEffect(() => {
+    // console.log("Exam start timer");
+    let interval = null;
+
+    if (timerReady) {
+      interval = setInterval(() => {
+        if (timerType === "type15" && time === 2) {
+          console.log("jest");
+          setTimerType("type20");
+          setTimerReady(false);
+        }
+        setTime(time => time + 1);
+
+        console.log(time, timerType, questionType);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [time]);
+
+  const nextQuestion = () => {
+    setCurrentNr(currentNr + 1);
+    setTime(0);
+  };
 
   return (
     <>
@@ -21,7 +53,7 @@ const Exam = props => {
         </Col>
         <Col md={6}>
           <div className="d-flex flex-column h-100">
-            <div>asd</div>
+            <Timer duration={15} time={time} color="success" />
             <div className="mt-auto text-right">
               <Button variant="primary" onClick={nextQuestion}>
                 Następne

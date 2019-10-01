@@ -9,7 +9,7 @@ class Media extends Component {
   };
 
   playVideo = () => {
-    console.log("playVideo");
+    // console.log("playVideo");
     this.refs.video.play();
   };
 
@@ -28,19 +28,19 @@ class Media extends Component {
       <>
         {this.state.isLoaded ? "loaded" : "not loaded"}
         <video
+          className="w-100"
           id="video"
           ref="video"
           src={path + media}
           controls
-          // autoPlay
           onCanPlayThrough={() => this.playVideo()}
-          // onLoad={playVideo}
         />
         <button onClick={this.playVideo}>play</button>
       </>
     ) : (
       <>
         <img
+          className="w-100"
           src={path + media}
           alt="obraz"
           // onLoad={console.log("2 image loaded")}
