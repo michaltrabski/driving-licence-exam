@@ -81,7 +81,7 @@ class ExamWrapper extends Component {
       <MasterContainer>
         {questionsList.length > 0 ? (
           this.state.examReady ? (
-            <Exam examQuestionsList={this.state.examQuestionsList} />
+            <Exam questions={this.state.examQuestionsList} />
           ) : (
             <div className="text-center py-5">
               <Button

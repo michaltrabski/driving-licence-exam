@@ -1,41 +1,53 @@
-import React from "react";
-import styled from "styled-components";
+import React, { Component } from "react";
 
-const Video = styled.video`
-  padding: 0.25rem;
+const path = "https://poznaj-testy.pl/wp-content/uploads/media/";
+const emptyImage = "empty.jpg";
 
-  max-width: 100%;
-  height: auto;
-`;
+class Media extends Component {
+  state = {
+    isLoaded: false
+  };
 
-const Image = styled.img`
-  padding: 0.25rem;
+  playVideo = () => {
+    console.log("playVideo");
+    this.refs.video.play();
+  };
 
-  max-width: 100%;
-  height: auto;
-`;
+  render() {
+    let isVideo = false;
+    let { m: media } = this.props;
+    media = media.toString();
 
-const Media = ({ m: media }) => {
-  const path = "https://poznaj-testy.pl/wp-content/uploads/media/";
-  let isVideo = false;
+    if (media.indexOf(".wmv") > -1) {
+      media = media.replace(".wmv", ".mp4");
+      isVideo = true;
+    }
 
-  if (media.toString().indexOf(".wmv") > -1) {
-    media = media.toString().replace(".wmv", ".mp4");
-    isVideo = true;
-  }
-
-  if (media === "") media = "empty.jpg";
-
-  if (isVideo) {
-    return (
-      <Video controls>
-        <source src={path + media} type="video/mp4" />
-        Your browser does not support the video tag.
-      </Video>
+    if (media === "") media = emptyImage;
+    return isVideo ? (
+      <>
+        {this.state.isLoaded ? "loaded" : "not loaded"}
+        <video
+          id="video"
+          ref="video"
+          src={path + media}
+          controls
+          // autoPlay
+          onCanPlayThrough={() => this.playVideo()}
+          // onLoad={playVideo}
+        />
+        <button onClick={this.playVideo}>play</button>
+      </>
+    ) : (
+      <>
+        <img
+          src={path + media}
+          alt="obraz"
+          // onLoad={console.log("2 image loaded")}
+        />
+      </>
     );
-  } else {
-    return <Image src={path + media} alt="image" />;
   }
-};
+}
 
 export default Media;

@@ -16,7 +16,7 @@ const App = () => {
     setTimeout(() => {
       const questions = questionsListFromAssets;
       setQuestions(questions);
-    }, 1000);
+    }, 1);
   }, [questions]);
 
   return (
