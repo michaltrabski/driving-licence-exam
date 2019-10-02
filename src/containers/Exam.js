@@ -14,7 +14,7 @@ const Exam = ({ questions }) => {
     color: "success"
   });
 
-  let [d15, d20, d50] = [2, 3, 50];
+  let [d15, d20, d50] = [15, 20, 50];
 
   const question = questions[currentQuestion];
   let { m, q, r } = question;
@@ -82,8 +82,6 @@ const Exam = ({ questions }) => {
               time={timer.time}
               color={timer.color}
             />
-            {getQuestionType(question)}
-            {timer.duration}
             <div className="mt-auto text-right">
               <Button variant="primary" onClick={nextQuestion}>
                 Następne
