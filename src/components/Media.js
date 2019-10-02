@@ -13,6 +13,11 @@ class Media extends Component {
     this.refs.video.play();
   };
 
+  mediaLoaded = massage => {
+    // console.log(massage);
+    this.props.handleMediaReady();
+  };
+
   render() {
     let isVideo = false;
     let { m: media } = this.props;
@@ -33,7 +38,7 @@ class Media extends Component {
           ref="video"
           src={path + media}
           controls
-          onCanPlayThrough={() => this.playVideo()}
+          onCanPlayThrough={() => this.mediaLoaded("video loaded")}
         />
         <button onClick={this.playVideo}>play</button>
       </>
@@ -43,7 +48,7 @@ class Media extends Component {
           className="w-100"
           src={path + media}
           alt="obraz"
-          // onLoad={console.log("2 image loaded")}
+          onLoad={() => this.mediaLoaded("image loaded")}
         />
       </>
     );

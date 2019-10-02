@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import ExamWrapper from "./containers/ExamWrapper";
 import { questionsList as questionsListFromAssets } from "./assets/kat_b_pl";
-
+import "./App.css";
 export const QuestionsContext = createContext();
 
 const App = () => {
