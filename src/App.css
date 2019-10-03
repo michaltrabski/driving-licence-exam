@@ -1,0 +1,7 @@
+.progress-bar {
+  transition: none !important;
+}
+.btn.focus,
+.btn:focus {
+  box-shadow: none !important;
+}
